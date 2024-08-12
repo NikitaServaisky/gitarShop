@@ -8,6 +8,7 @@ import Account from './Pagas/Account';
 import Contacts from './Pagas/Contats';
 import Products from './Pagas/Products';
 import Cart from './Pagas/Cart';
+import RegisterForm from './controllers/RegisterForm/RegisterForm';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/account',
         element: <Account />,
+        children: [
+          {path: 'register',
+          element: <RegisterForm />,}
+        ]
       },
       {
         path: '/products',
