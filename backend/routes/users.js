@@ -1,107 +1,72 @@
 //definition routes
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
+const User = require('../models/User');
+const sendEmail = require('../utils/sendEnails');
 
 //get all users
-router.get('/', (req, res) => {
-  //read file from directory
-  const usersJSON = fs.readFileSync(path.join(__dirname, '../data', 'users.json'));
-  // console.log(usersJSON);
-
-  //parses data from file
-  const users = JSON.parse(usersJSON);
-  // console.log(users);
-
-  //response
-  res.status(200).json({ data: users, message: 'Successfully' });
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({ data: users, message: 'Successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 //get one user by id
-router.get('/:id', (req, res) => {
-  //read file from directory
-  const usersJSON = fs.readFileSync(path.join(__dirname, '../data', 'users.json'));
-  // console.log(usersJSON);
-
-  //parse data from file
-  const users = JSON.parse(usersJSON);
-  // console.log(users);
-
-  //send id params from object
-  const id = req.params.id;
-
-  //find one user by id
-  const user = users.find((user) => user.id.toString() === id);
-  // console.log(user);
-  // console.log(id);
-
-  res.status(200).json({ data: user, message: 'Successfully' });
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await user.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ data: user, message: 'successfuly' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 //create new user
-router.post('/', (req, res) => {
-  //send setings from front
-  const { name, age } = req.body;
+router.post('/', async (req, res) => {
+  const { name, secondName, age, email, tel, password } = req.body;
 
-  //read file
-  const usersJSON = fs.readFileSync(path.join(__dirname, '../data', 'users.json'));
-
-  //parsing json
-  const users = JSON.parse(usersJSON);
-
-  //create new id
-  const date = new Date();
-  const id = date.getMilliseconds().toString();
-
-  //create user object
-  const newUser = {
-    id,
-    name,
-    age,
-  };
-  //push new object to database
-  users.push(newUser);
-  fs.writeFileSync(path.join(__dirname, '../data', 'users.json'), JSON.stringify(users));
-
-  //response from server
-  res.status(201).json({
-    data: newUser,
-    message: 'Created Successfully!',
-  });
+  const newUser = new User({ name, secondName, age, email, tel, password });
+  try {
+    await newUser.save();
+    sendEmail(newUser.email, 'Welcome to Guitar Shop', 'Thank you for registering!')
+    sendEmail(process.env.EMAIL, 'New Customer Registered', `A new customer named ${newUser.name} has registered.`)
+    res.status(201).json({ data: newUser, message: 'Created Successfully!' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 //editing user
-router.put('/:id', (req, res) => {
-  const id = req.params.id;
-  const updates = req.body;
-
-  //read and parse JSON file
-  const usersFilePath = path.join(__dirname, '../data', 'users.json');
-  const usersJSON = fs.readFileSync(usersFilePath, 'utf-8');
-  const users = JSON.parse(usersJSON);
-
-  //get user by id
-  const userIndex = users.findIndex((user) => user.id.toString() === id);
-    if (userIndex === -1) {
+router.put('/:id', async (req, res) => {
+  const { name, secondName, age, email, tel, password } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
       return res.status(404).json({ message: 'User not found' });
+    }
+    user.name = name;
+    user.secondName = secondName;
+    user.age = age;
+    user.email = email;
+    user.tel = tel;
+    if (password) {
+      user.password = password;
+    }
+      
+    await user.save();
+        sendEmail(user.email, 'Welcome to Guitar Shop', 'update!')
+    sendEmail(process.env.EMAIL, 'Customer update', `A new customer named ${user.name} has update.`)
+    res.status(200).json({ data: user, message: 'Updated Successfully!' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-  
-  //update user
-  const updateUser = {
-    ...users[userIndex],
-    ...updates,
-  };
 
-  users[userIndex] = updateUser;
-
-  //write update users list back to file
-  fs.writeFileSync(usersFilePath, JSON.stringify(users));
-
-  res.status(200).json({
-    data: updateUser,
-    message: 'Updated Successfully!',
-  })
-})
+});
 
 module.exports = router;
