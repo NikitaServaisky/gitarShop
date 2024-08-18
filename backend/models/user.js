@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -17,12 +18,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    match: [/.+@\..+/, 'Please enter a valid email address'],
+    match: [/.+@.+\..+/, 'Please enter a valid email address'],
   },
   tel: {
     type: String,
     required: true,
-    match: [/^\d{d}$/, 'Please enter a valid 10-digit phone number'],
+    match: [/^\d{10}$/, 'Please enter a valid 10-digit phone number'],
   },
   password: {
     type: String,
@@ -30,7 +31,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-//Has the password before savingthe user
+// Hash the password before saving the user
 UserSchema.pre('save', async function (next) {
   if (this.isModified('password') || this.isNew) {
     try {
@@ -45,9 +46,9 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
-//method to compare password for login
+// Method to compare password for login
 UserSchema.methods.comparePassword = async function (candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

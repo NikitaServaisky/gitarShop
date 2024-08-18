@@ -9,6 +9,7 @@ import Contacts from './Pagas/Contats';
 import Products from './Pagas/Products';
 import Cart from './Pagas/Cart';
 import RegisterForm from './controllers/RegisterForm/RegisterForm';
+import LoginForm from './controllers/LoginComponent/Login';
 
 const router = createBrowserRouter([
   {
@@ -21,27 +22,32 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/about',
+        path: 'about',
         element: <About />,
       },
       {
-        path: '/account',
+        path: 'account',
         element: <Account />,
         children: [
           {path: 'register',
-          element: <RegisterForm />,}
+            element: <RegisterForm />,
+          },
+          {
+            path: 'login',
+            element: <LoginForm/>,
+          },
         ]
       },
       {
-        path: '/products',
+        path: 'products',
         element: <Products />,
       },
       {
-        path: '/contact',
+        path: 'contact',
         element: <Contacts />,
       },
       {
-        path: '/cart',
+        path: 'cart',
         element: <Cart />,
       },
     ],
