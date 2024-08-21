@@ -1,6 +1,8 @@
 //definition routes
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const sendEmail = require('../utils/sendEnails');
 
@@ -31,7 +33,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const { name, secondName, age, email, tel, password } = req.body;
 
-  const newUser = new User({ name, secondName, age, email, tel, password });
+ const hashedPassword = await bcrypt.hash(password, 10);
+ const newUser = new User({ name, secondName, age, email, tel, password: hashedPassword });
   try {
     await newUser.save();
     sendEmail(newUser.email, 'Welcome to Guitar Shop', 'Thank you for registering!');
@@ -60,17 +63,18 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
-    // chack that
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    if (!token) {
+      return res.status(500).json({ message: 'Failed to generate token' });
+    }
 
     res.status(200).json({ token, message: 'Login successful!' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 //editing user
 router.put('/:id', async (req, res) => {
@@ -85,8 +89,9 @@ router.put('/:id', async (req, res) => {
     user.age = age;
     user.email = email;
     user.tel = tel;
-    if (password && password !== user.password) {
-      user.password = password;
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
     }
 
     await user.save();
