@@ -8,8 +8,10 @@ import Account from './Pagas/Account';
 import Contacts from './Pagas/Contats';
 import Products from './Pagas/Products';
 import Cart from './Pagas/Cart';
-import RegisterForm from './controllers/RegisterForm/RegisterForm';
-import LoginForm from './controllers/LoginComponent/Login';
+import RegisterForm from './Pagas/RegisterForm/RegisterForm';
+import LoginForm from './Pagas/LoginComponent/Login';
+import { AuthProvider } from './controllers/AuthContext';
+import ProtectedRoute from './controllers/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -29,14 +31,23 @@ const router = createBrowserRouter([
         path: 'account',
         element: <Account />,
         children: [
-          {path: 'register',
+          {
+            path: 'login',
+            element: <LoginForm />,
+          },
+          {
+            path: 'register',
             element: <RegisterForm />,
           },
           {
-            path: 'login',
-            element: <LoginForm/>,
+            path: '',
+            element: (
+              <ProtectedRoute>
+                <LoginForm />
+              </ProtectedRoute>
+            ),
           },
-        ]
+        ],
       },
       {
         path: 'products',
@@ -60,7 +71,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 export default App;

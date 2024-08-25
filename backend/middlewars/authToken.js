@@ -1,8 +1,15 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
+  const authHeader = req.headers['authorization'];
+  console.log('Incoming Headers:', req.headers);
+  console.log('Authorization Header:', authHeader);
 
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Access Denied: No Authorization header provided' });
+  }
+
+  const token = authHeader.split(' ')[1];
   if (!token) {
     return res.status(401).json({ message: 'Access Denied: No Token Provided' });
   }
@@ -12,6 +19,7 @@ const authenticateToken = (req, res, next) => {
     req.user = verified;
     next();
   } catch (err) {
+    console.error('Invalid token:', err);
     res.status(400).json({ message: 'Invalid Token' });
   }
 };

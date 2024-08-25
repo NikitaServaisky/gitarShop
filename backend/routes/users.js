@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const sendEmail = require('../utils/sendEnails');
+const sendEmail = require('../utils/sendEmail');
 
 //get all users
 router.get('/', async (req, res) => {
@@ -47,34 +47,31 @@ router.post('/', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+  console.log('Incoming Headers:', req.headers);
+
 });
 
 // Login user
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    if (!token) {
-      return res.status(500).json({ message: 'Failed to generate token' });
-    }
-
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '10h' });
     res.status(200).json({ token, message: 'Login successful!' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Error during login:', err);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 //editing user
 router.put('/:id', async (req, res) => {

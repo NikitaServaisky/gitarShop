@@ -12,11 +12,11 @@ const Header = () => {
     { id: 6, name: 'Cart', path: '/cart' },
   ];
   return (
-    <header>
+    <header className={Classes.header}>
       <nav>
-        <ul>
+        <ul className={Classes.list}>
           {navList.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} className={Classes.li}>
               <NavLink to={item.path}>{item.name}</NavLink>
             </li>
           ))}
