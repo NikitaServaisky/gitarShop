@@ -1,27 +1,29 @@
-//setup server
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-require('dotenv').config();
-const connectDB = require('./db')
-const authenticateToken = require('./middlewars/authToken');
+const connectDB = require('./db');
+const authenticateToken = require('./middlewares/authToken');
 
-
-//conect to mongoDB
-connectDB()
+// Connect to MongoDB
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-const usersRouter = require('./routes/Users');
-app.use('/account/login', usersRouter);
-app.use('/account/register', usersRouter);
+// Import routes
+const publicRoutes = require('./routes/publicRoutes');
+const protectedRoutes = require('./routes/protectedRoutes');
 
-app.use(authenticateToken);
+// Public routes (no authentication required)
+app.use('/account', publicRoutes);
 
+// Protected routes (authentication required)
+app.use('/account', authenticateToken, protectedRoutes);
 
+// Setup server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-})
+  console.log(`Server is running on port ${PORT}`);
+});

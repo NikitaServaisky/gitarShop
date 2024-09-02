@@ -1,5 +1,6 @@
 import React from 'react';
 import FormComponent from '../../Copmponents/FormComponent/Form';
+import Button from '../../Copmponents/ButtonComponent/Button';
 
 const RegisterForm = () => {
   const fields = [
@@ -17,6 +18,7 @@ const RegisterForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -33,7 +35,13 @@ const RegisterForm = () => {
     }
   };
 
-  return <FormComponent fields={fields} onSubmit={handleRegister} />;
+  return (
+    <>
+      <FormComponent fields={fields} onSubmit={handleRegister} />
+      <Button>Register</Button>
+      <Button>Cancel</Button>
+    </>
+  );
 };
 
 export default RegisterForm;
