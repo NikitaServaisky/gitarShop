@@ -55,24 +55,32 @@ exports.loginUser = async (req, res) => {
 
   // Validate request
   if (!email || !password) {
+    console.log('Email or password missing'); // Debugging log
     return res.status(400).json({ message: 'Please provide email and password' });
   }
 
   try {
+    console.log('Finding user by email:', email); // Debugging log
     const user = await User.findOne({ email });
     if (!user) {
+      console.log('User not found'); // Debugging log
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const isMatch = await user.comparePassword(password);
+    console.log('Comparing passwords'); // Debugging log
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log('Password mismatch'); // Debugging log
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
+    console.log('Generating token'); // Debugging log
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+    console.log('Login successful'); // Debugging log
     res.status(200).json({ token, message: 'Login successful!' });
   } catch (err) {
-    console.error('Error during login:', err);
+    console.error('Error during login:', err); // Debugging log
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+

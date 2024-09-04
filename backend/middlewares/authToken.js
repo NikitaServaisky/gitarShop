@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'] || req.headers['Authorization'];
-  // console.log('Incoming Headers:', req.headers);
-  // console.log('Authorization Header:', authHeader);
+  console.log('Incoming Headers:', req.headers);
+  console.log('Authorization Header:', authHeader);
 
   if (!authHeader) {
     return res.status(401).json({ message: 'Access Denied: No Authorization header provided' });
@@ -25,4 +25,3 @@ const authenticateToken = (req, res, next) => {
 };
 
 module.exports = authenticateToken;
-
