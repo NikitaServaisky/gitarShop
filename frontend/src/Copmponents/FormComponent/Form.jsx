@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
-const FormComponent = ({ fields, onSubmit }) => {
+const FormComponent = ({ fields, onSubmit, onChange }) => {
   const [formData, setFormData] = useState(
     fields.reduce((acc, field) => ({ ...acc, [field.name]: '' }), {}),
   );
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (onChange) {
+      onChange(e); // Call the onChange prop if passed from parent
+    }
   };
 
   const handleSubmit = (e) => {
@@ -28,6 +32,7 @@ const FormComponent = ({ fields, onSubmit }) => {
           />
         </div>
       ))}
+      <button type="submit">Submit</button> {/* Form's submit button */}
     </form>
   );
 };

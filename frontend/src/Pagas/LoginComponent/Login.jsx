@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../controllers/AuthContext';
-import Form from '../../Copmponents/FormComponent/Form';
-import Button from '../../Copmponents/ButtonComponent/Button';
+import FormComponent from '../../Copmponents/FormComponent/Form';
 
 const LoginForm = () => {
   const { login } = useAuth();
@@ -16,38 +15,11 @@ const LoginForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log('Field Name:', name, 'Value:', value);
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault(); // Prevent default form submission behavior
-
-  //   try {
-  //     const response = await fetch('http://localhost:3000/account/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     const result = await response.json();
-  //     if (response.ok) {
-  //       login(result.token);
-  //       alert('Login successful!');
-  //       navigate('/account');
-  //     } else {
-  //       alert(`Login failed: ${result.message}`);
-  //     }
-  //   } catch (err) {
-  //     console.error('Error during login:', err);
-  //     alert('An error occurred during login.');
-  //   }
-  // };
-
-  const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
+  const handleLogin = async (formData) => {
     try {
       const response = await fetch('http://localhost:3000/account/login', {
         method: 'POST',
@@ -57,38 +29,27 @@ const LoginForm = () => {
         body: JSON.stringify(formData),
       });
 
-      // Check if the response is not OK (e.g., 4xx or 5xx HTTP status code)
-      if (!response.ok) {
-        const result = await response.json(); // Parse JSON from response body
-        const errorMessage = result.message || 'Unknown error occurred';
-        alert(`Login failed: ${errorMessage}`);
-        return;
-      }
+      const result = await response.json();
+      console.log('Login Response:', result); // Debugging log
 
-      // If the response is OK, continue with login
-      const result = await response.json(); // Parse JSON from response body
-      login(result.token); // Save token or perform login action
-      alert('Login successful!');
-      navigate('/account'); // Navigate to the account page
+      if (response.ok) {
+        login(result.token); // Save token using login function
+        alert('Login successful!');
+        navigate('/account');
+      } else {
+        alert(`Login failed: ${result.message}`);
+      }
     } catch (err) {
       console.error('Error during fetch operation:', err);
       alert('An error occurred during login. Please try again later.');
     }
   };
 
-
   return (
-    <form onSubmit={handleLogin}>
-      <Form fields={fields} onChange={handleInputChange} />
-      <div>
-        <Button type="submit" text="Login">
-          Login
-        </Button>
-        <Button to="/account/register" type="button">
-          Signup
-        </Button>
-      </div>
-    </form>
+    <>
+      <FormComponent fields={fields} onChange={handleInputChange} onSubmit={handleLogin} />
+      <Link to="/forgot-password">Forget password</Link>
+    </>
   );
 };
 

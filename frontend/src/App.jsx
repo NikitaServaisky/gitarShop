@@ -12,6 +12,8 @@ import RegisterForm from './Pagas/RegisterForm/RegisterForm';
 import LoginForm from './Pagas/LoginComponent/Login';
 import { AuthProvider } from './controllers/AuthContext';
 import ProtectedRoute from './controllers/ProtectedRoute';
+import ForgotPassword from './Pagas/ForgotPassword';
+import ResetPassword from './Pagas/ResetPasswordComponent/ResetComponent';
 
 const router = createBrowserRouter([
   {
@@ -39,15 +41,24 @@ const router = createBrowserRouter([
             path: 'register',
             element: <RegisterForm />,
           },
+
           {
             path: '',
             element: (
               <ProtectedRoute>
-                <LoginForm />
+                <Account />
               </ProtectedRoute>
             ),
           },
         ],
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword />,
+      },
+      {
+        path: 'reset-password/:token',
+        element: <ResetPassword />,
       },
       {
         path: 'products',
@@ -63,12 +74,13 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: '*',
     element: <ErrorElement />,
   },
 ]);
+
+
 
 function App() {
   return (
