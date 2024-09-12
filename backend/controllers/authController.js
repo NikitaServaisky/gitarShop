@@ -95,17 +95,23 @@ exports.forgotPassword = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Generate a reset token
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    // // Generate a reset token
+    // const resetToken = crypto.randomBytes(32).toString('hex');
+    // const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    // // const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+    // //   expiresIn: '5m',
+    // // });
+    // user.resetPasswordToken = hashedToken;
+    // user.resetPasswordExpires = Date.now() + 3600000; // 1 hour expiration
 
-    user.resetPasswordToken = hashedToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour expiration
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+
+    user.tempToken = token;
 
     await user.save();
 
     // Create reset URL
-    const resetURL = `http://localhost:3000/reset-password/${encodeURIComponent(resetToken)}`;
+    const resetURL = `http://localhost:5173/reset-password/${token}`;
 
     // Send the reset email
     const message = `You requested a password reset. Please use the following link to reset your password: ${resetURL}`;
@@ -118,37 +124,48 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
-
 // Reset-password
 exports.resetPassword = async (req, res) => {
   const { token } = req.params;
-  const { newPassword } = req.body;
-  const decodedToken = decodeURIComponent(token);
+  const { newPassword, passwordAgain } = req.body;
+  // const decodedToken = decodeURIComponent(token);
 
   try {
-    const hashedToken = crypto.createHash('sha256').update(decodedToken).digest('hex');
-
+    // const hashedToken = crypto.createHash('sha256').update(decodedToken).digest('hex');
+    let userID;
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (verified) {
+      userID = verified.userId;
+    }
+    const user = await User.findById(userID);
     // Debugging logs
-    console.log('Received token:', decodedToken);
-    console.log('Hashed token from URL:', hashedToken);
+    // console.log('Received token:', decodedToken);
+    // console.log('Hashed token from URL:', hashedToken);
 
-    const user = await User.findOne({
-      resetPasswordToken: hashedToken,
-      resetPasswordExpires: { $gt: Date.now() },
-    });
+    // const user = await User.findOne({
+    //   // resetPasswordToken: hashedToken,
+    //   // resetPasswordExpires: { $gt: Date.now() },
+    //   verified.userId,
+    // });
 
     if (!user) {
       console.log('No matching user or token expired');
       return res.status(400).json({ message: 'Invalid or expired token' });
     }
 
-    console.log('Found user with stored token:', user.resetPasswordToken);
+    console.log('Found user with stored token:', token);
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    // const hashedPassword = await bcrypt.hash(newPassword, 10);
+    if (newPassword === passwordAgain) {
+      console.log(newPassword);
+      user.password = newPassword;
+    } else {
+      res.status(400).json({ message: 'No Match between Password' });
+    }
 
-    user.password = hashedPassword;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    // user.resetPasswordToken = undefined;
+    // user.resetPasswordExpires = undefined;
+    if (!user.password) res.status(400).json({ message: 'No Password' });
 
     await user.save();
 
@@ -158,4 +175,3 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ message: 'Error resetting password.' });
   }
 };
-
