@@ -3,13 +3,15 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  // Check for token in localStorage
-  const token = localStorage.getItem('token');
+  // Show loading state while checking authetication
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  // If no token or not authenticated, redirect to login
-  if (!isAuthenticated || !token) {
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
     return <Navigate to="/account/login" replace />;
   }
 

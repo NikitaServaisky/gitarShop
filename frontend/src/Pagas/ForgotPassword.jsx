@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { backEndApi } from '../api';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -6,7 +7,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/forgot-password', {
+      const response = await fetch(backEndApi + '/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

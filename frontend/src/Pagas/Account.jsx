@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../controllers/AuthContext';
-import { Outlet, useNavigate, Link } from 'react-router-dom';
+import { Outlet, replace, useNavigate } from 'react-router-dom';
 
 const Account = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -15,12 +15,13 @@ const Account = () => {
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/account/login', { replace: true });
+    } else {
+      navigate('/account/userin', { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
   return (
     <>
-      <div>Account</div>
       <Outlet />
     </>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import FormComponent from '../../Copmponents/FormComponent/Form';
 import Button from '../../Copmponents/ButtonComponent/Button';
+import { backEndApi } from '../../api';
 
 const RegisterForm = () => {
   const fields = [
@@ -14,7 +15,7 @@ const RegisterForm = () => {
 
   const handleRegister = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/account', {
+      const response = await fetch(`${backEndApi}/account/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

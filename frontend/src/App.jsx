@@ -10,6 +10,7 @@ import Products from './Pagas/Products';
 import Cart from './Pagas/Cart';
 import RegisterForm from './Pagas/RegisterForm/RegisterForm';
 import LoginForm from './Pagas/LoginComponent/Login';
+import UserIn from './Pagas/userInComponent/UserIn';
 import { AuthProvider } from './controllers/AuthContext';
 import ProtectedRoute from './controllers/ProtectedRoute';
 import ForgotPassword from './Pagas/ForgotPassword';
@@ -41,7 +42,10 @@ const router = createBrowserRouter([
             path: 'register',
             element: <RegisterForm />,
           },
-
+          {
+            path: 'userin',
+            element: <UserIn />,
+          },
           {
             path: '',
             element: (
@@ -79,8 +83,6 @@ const router = createBrowserRouter([
     element: <ErrorElement />,
   },
 ]);
-
-
 
 function App() {
   return (
