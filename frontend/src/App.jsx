@@ -6,7 +6,8 @@ import Home from './Pagas/Home';
 import About from './Pagas/About';
 import Account from './Pagas/Account';
 import Contacts from './Pagas/Contats';
-import Products from './Pagas/Products';
+import Products from './Pagas/ProductsPage/Products';
+import ProductDetail from './Pagas/ProductDetailPage/ProductDetail';
 import Cart from './Pagas/Cart';
 import RegisterForm from './Pagas/RegisterForm/RegisterForm';
 import LoginForm from './Pagas/LoginComponent/Login';
@@ -67,6 +68,12 @@ const router = createBrowserRouter([
       {
         path: 'products',
         element: <Products />,
+        children: [
+          {
+            path: ':productId',
+            element: <ProductDetail />,
+          },
+        ],
       },
       {
         path: 'contact',

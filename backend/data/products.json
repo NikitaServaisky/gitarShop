@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "model": "Fender Stratocaster",
+    "manufacturer": "Fender",
+    "price": 1200,
+    "reviews": 4.7,
+    "colors": ["Sunburst", "Black", "White"],
+    "piecesInStock": 10,
+    "image": "https://example.com/images/fender_stratocaster.jpg"
+  },
+  {
+    "id": 2,
+    "model": "Gibson Les Paul",
+    "manufacturer": "Gibson",
+    "price": 2500,
+    "reviews": 4.9,
+    "colors": ["Cherry Sunburst", "Gold", "Black"],
+    "piecesInStock": 5,
+    "image": "https://example.com/images/gibson_les_paul.jpg"
+  },
+  {
+    "id": 3,
+    "model": "Ibanez RG550",
+    "manufacturer": "Ibanez",
+    "price": 850,
+    "reviews": 4.5,
+    "colors": ["Yellow", "Blue", "Red"],
+    "piecesInStock": 7,
+    "image": "https://example.com/images/ibanez_rg550.jpg"
+  },
+  {
+    "id": 4,
+    "model": "Yamaha Pacifica",
+    "manufacturer": "Yamaha",
+    "price": 500,
+    "reviews": 4.2,
+    "colors": ["Natural", "Black", "Red"],
+    "piecesInStock": 15,
+    "image": "https://example.com/images/yamaha_pacifica.jpg"
+  },
+  {
+    "id": 5,
+    "model": "PRS Custom 24",
+    "manufacturer": "PRS",
+    "price": 3000,
+    "reviews": 4.8,
+    "colors": ["Blue", "Green", "Orange"],
+    "piecesInStock": 3,
+    "image": "https://example.com/images/prs_custom24.jpg"
+  },
+  {
+    "id": 6,
+    "model": "Jackson Soloist SL2",
+    "manufacturer": "Jackson",
+    "price": 1500,
+    "reviews": 4.6,
+    "colors": ["Black", "Metallic Red"],
+    "piecesInStock": 8,
+    "image": "https://example.com/images/jackson_soloist_sl2.jpg"
+  },
+  {
+    "id": 7,
+    "model": "Epiphone Les Paul Standard",
+    "manufacturer": "Epiphone",
+    "price": 700,
+    "reviews": 4.4,
+    "colors": ["Cherry", "Black"],
+    "piecesInStock": 12,
+    "image": "https://example.com/images/epiphone_les_paul_standard.jpg"
+  },
+  {
+    "id": 8,
+    "model": "Schecter C-1 Platinum",
+    "manufacturer": "Schecter",
+    "price": 900,
+    "reviews": 4.3,
+    "colors": ["Silver", "Black"],
+    "piecesInStock": 6,
+    "image": "https://example.com/images/schecter_c1_platinum.jpg"
+  },
+  {
+    "id": 9,
+    "model": "ESP LTD EC-1000",
+    "manufacturer": "ESP",
+    "price": 1200,
+    "reviews": 4.7,
+    "colors": ["Vintage Black", "Gold", "Blue"],
+    "piecesInStock": 5,
+    "image": "https://example.com/images/esp_ltd_ec1000.jpg"
+  },
+  {
+    "id": 10,
+    "model": "Fender Telecaster",
+    "manufacturer": "Fender",
+    "price": 1300,
+    "reviews": 4.8,
+    "colors": ["Butterscotch Blonde", "Natural"],
+    "piecesInStock": 9,
+    "image": "https://example.com/images/fender_telecaster.jpg"
+  },
+  {
+    "id": 11,
+    "model": "Gibson SG Standard",
+    "manufacturer": "Gibson",
+    "price": 1600,
+    "reviews": 4.6,
+    "colors": ["Heritage Cherry", "Black"],
+    "piecesInStock": 4,
+    "image": "https://example.com/images/gibson_sg_standard.jpg"
+  },
+  {
+    "id": 12,
+    "model": "Ibanez JEM7V",
+    "manufacturer": "Ibanez",
+    "price": 2700,
+    "reviews": 4.9,
+    "colors": ["White", "Black"],
+    "piecesInStock": 2,
+    "image": "https://example.com/images/ibanez_jem7v.jpg"
+  },
+  {
+    "id": 13,
+    "model": "Gretsch G5422T",
+    "manufacturer": "Gretsch",
+    "price": 1100,
+    "reviews": 4.5,
+    "colors": ["Orange", "Black"],
+    "piecesInStock": 7,
+    "image": "https://example.com/images/gretsch_g5422t.jpg"
+  },
+  {
+    "id": 14,
+    "model": "Squier Classic Vibe 50s Strat",
+    "manufacturer": "Squier",
+    "price": 400,
+    "reviews": 4.3,
+    "colors": ["Fiesta Red", "White"],
+    "piecesInStock": 14,
+    "image": "https://example.com/images/squier_classic_vibe_50s.jpg"
+  },
+  {
+    "id": 15,
+    "model": "ESP LTD MH-1000",
+    "manufacturer": "ESP",
+    "price": 950,
+    "reviews": 4.6,
+    "colors": ["Black", "Blue Fade"],
+    "piecesInStock": 5,
+    "image": "https://example.com/images/esp_ltd_mh1000.jpg"
+  },
+  {
+    "id": 16,
+    "model": "Jackson Dinky DK2",
+    "manufacturer": "Jackson",
+    "price": 1200,
+    "reviews": 4.7,
+    "colors": ["Neon Green", "White"],
+    "piecesInStock": 8,
+    "image": "https://example.com/images/jackson_dinky_dk2.jpg"
+  },
+  {
+    "id": 17,
+    "model": "PRS SE Custom 22",
+    "manufacturer": "PRS",
+    "price": 800,
+    "reviews": 4.5,
+    "colors": ["Tobacco Sunburst", "Blue"],
+    "piecesInStock": 10,
+    "image": "https://example.com/images/prs_se_custom22.jpg"
+  },
+  {
+    "id": 18,
+    "model": "Fender Player Stratocaster",
+    "manufacturer": "Fender",
+    "price": 750,
+    "reviews": 4.6,
+    "colors": ["Sunburst", "Polar White"],
+    "piecesInStock": 12,
+    "image": "https://example.com/images/fender_player_stratocaster.jpg"
+  },
+  {
+    "id": 19,
+    "model": "Gibson Flying V",
+    "manufacturer": "Gibson",
+    "price": 1800,
+    "reviews": 4.8,
+    "colors": ["Antique Natural", "Black"],
+    "piecesInStock": 4,
+    "image": "https://example.com/images/gibson_flying_v.jpg"
+  },
+  {
+    "id": 20,
+    "model": "Schecter Omen Extreme-6",
+    "manufacturer": "Schecter",
+    "price": 500,
+    "reviews": 4.2,
+    "colors": ["Black Cherry", "See-Thru Blue"],
+    "piecesInStock": 10,
+    "image": "https://example.com/images/schecter_omen_extreme6.jpg"
+  },
+  {
+    "id": 21,
+    "model": "Ibanez RG450DX",
+    "manufacturer": "Ibanez",
+    "price": 650,
+    "reviews": 4.3,
+    "colors": ["White", "Blue"],
+    "piecesInStock": 9,
+    "image": "https://example.com/images/ibanez_rg450dx.jpg"
+  },
+  {
+    "id": 22,
+    "model": "Epiphone Casino",
+    "manufacturer": "Epiphone",
+    "price": 850,
+    "reviews": 4.5,
+    "colors": ["Vintage Sunburst", "Natural"],
+    "piecesInStock": 6,
+    "image": "https://example.com/images/epiphone_casino.jpg"
+  },
+  {
+    "id": 23,
+    "model": "Yamaha Revstar RS502",
+    "manufacturer": "Yamaha",
+    "price": 700,
+    "reviews": 4.4,
+    "colors": ["Bowden Green", "Steel Blue"],
+    "piecesInStock": 11,
+    "image": "https://example.com/images/yamaha_revstar_rs502.jpg"
+  },
+  {
+    "id": 24,
+    "model": "Gibson ES-335",
+    "manufacturer": "Gibson",
+    "price": 3000,
+    "reviews": 4.9,
+    "colors": ["Cherry", "Natural"],
+    "piecesInStock": 3,
+    "image": "https://example.com/images/gibson_es335.jpg"
+  },
+  {
+    "id": 25,
+    "model": "Gretsch Streamliner G2622",
+    "manufacturer": "Gretsch",
+    "price": 600,
+    "reviews": 4.5,
+    "colors": ["Imperial Stain", "Torino Green"],
+    "piecesInStock": 9,
+    "image": "https://example.com/images/gretsch_g2622.jpg"
+  },
+  {
+    "id": 26,
+    "model": "Squier Affinity Telecaster",
+    "manufacturer": "Squier",
+    "price": 250,
+    "reviews": 4.1,
+    "colors": ["Butterscotch Blonde", "Black"],
+    "piecesInStock": 20,
+    "image": "https://example.com/images/squier_affinity_telecaster.jpg"
+  },
+  {
+    "id": 27,
+    "model": "Ibanez S570DXQM",
+    "manufacturer": "Ibanez",
+    "price": 950,
+    "reviews": 4.6,
+    "colors": ["Ocean Blue Burst", "Trans Red"],
+    "piecesInStock": 7,
+    "image": "https://example.com/images/ibanez_s570dxqm.jpg"
+  },
+  {
+    "id": 28,
+    "model": "PRS SE Santana",
+    "manufacturer": "PRS",
+    "price": 750,
+    "reviews": 4.7,
+    "colors": ["Orange", "Black Gold"],
+    "piecesInStock": 5,
+    "image": "https://example.com/images/prs_se_santana.jpg"
+  },
+  {
+    "id": 29,
+    "model": "Gibson Firebird",
+    "manufacturer": "Gibson",
+    "price": 2200,
+    "reviews": 4.8,
+    "colors": ["Vintage Sunburst", "Black"],
+    "piecesInStock": 3,
+    "image": "https://example.com/images/gibson_firebird.jpg"
+  },
+  {
+    "id": 30,
+    "model": "Fender American Ultra Jazzmaster",
+    "manufacturer": "Fender",
+    "price": 2200,
+    "reviews": 4.9,
+    "colors": ["Ultraburst", "Mocha Burst"],
+    "piecesInStock": 4,
+    "image": "https://example.com/images/fender_american_ultra_jazzmaster.jpg"
+  }
+]

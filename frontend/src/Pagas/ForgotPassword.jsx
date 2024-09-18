@@ -7,7 +7,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(backEndApi + '/forgot-password', {
+      const response = await fetch(`${backEndApi}/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
