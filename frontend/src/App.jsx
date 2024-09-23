@@ -8,7 +8,7 @@ import Account from './Pagas/Account';
 import Contacts from './Pagas/Contats';
 import Products from './Pagas/ProductsPage/Products';
 import ProductDetail from './Pagas/ProductDetailPage/ProductDetail';
-import Cart from './Pagas/Cart';
+import Cart from './Pagas/CartPage/Cart';
 import RegisterForm from './Pagas/RegisterForm/RegisterForm';
 import LoginForm from './Pagas/LoginComponent/Login';
 import UserIn from './Pagas/userInComponent/UserIn';
@@ -16,6 +16,7 @@ import { AuthProvider } from './controllers/AuthContext';
 import ProtectedRoute from './controllers/ProtectedRoute';
 import ForgotPassword from './Pagas/ForgotPassword';
 import ResetPassword from './Pagas/ResetPasswordComponent/ResetComponent';
+import { CartProvider } from './controllers/CartContaxt';
 
 const router = createBrowserRouter([
   {
@@ -94,7 +95,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </AuthProvider>
   );
 }

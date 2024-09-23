@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Modal from 'react-modal';
 import classes from './Gallery.module.css'; // Import CSS
 import ProductModal from '../ProductModal/Product'; // Import the modal component
 
