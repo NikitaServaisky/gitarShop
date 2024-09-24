@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../controllers/CartContaxt';
 import classes from './ProductModal.module.css';
+import Button from '../ButtonComponent/Button'; // Import the reusable Button component
 
 const ProductModal = ({ product, isOpen, onRequestClose, isAuthenticated }) => {
   const navigate = useNavigate();
-  const { addToCart } = useContext(CartContext); // Use the cart context
+  const { addToCart } = useContext(CartContext);
 
   const handleBuyNow = () => {
     if (isAuthenticated) {
@@ -20,9 +21,9 @@ const ProductModal = ({ product, isOpen, onRequestClose, isAuthenticated }) => {
   return (
     <div className={classes.modalOverlay} onClick={onRequestClose}>
       <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
-        <button onClick={onRequestClose} className={classes.closeButton}>
+        <Button onClick={onRequestClose} className={classes.closeButton}>
           X
-        </button>
+        </Button>
         <div className={classes.modalContent}>
           <img src={product.image} alt={product.model} className={classes.productImage} />
           <h1>{product.model}</h1>
@@ -34,18 +35,18 @@ const ProductModal = ({ product, isOpen, onRequestClose, isAuthenticated }) => {
           </p>
           <p>{product.description}</p>
 
-          {/* Add to Cart and Buy Now Buttons */}
+          {/* Use the reusable Button component */}
           <div className={classes.actions}>
-            <button onClick={() => addToCart(product)} className={classes.addToCartButton}>
+            <Button onClick={() => addToCart(product)} className={classes.addToCartButton}>
               Add to Cart
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleBuyNow}
               className={classes.buyNowButton}
               disabled={!isAuthenticated}
             >
               Buy Now
-            </button>
+            </Button>
           </div>
 
           {!isAuthenticated && (

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../controllers/CartContaxt';
+import CartItem from '../../Copmponents/CartItemComponent/CartItem';
 import classes from './Cart.module.css';
 
 const Cart = () => {
@@ -16,15 +17,7 @@ const Cart = () => {
         <>
           <ul>
             {cart.map((item) => (
-              <li key={item.id}>
-                <img src={item.image} alt={item.model} className={classes.cartImage} />
-                <div>
-                  <h3>{item.model}</h3>
-                  <p>Price: ${item.price}</p>
-                  <p>Quantity: {item.quantity}</p>
-                </div>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
-              </li>
+              <CartItem key={item._id} item={item} onRemove={removeFromCart} />
             ))}
           </ul>
           <div className={classes.total}>

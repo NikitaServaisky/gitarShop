@@ -17,19 +17,6 @@
   font-size: 16px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-}
-
 li:last-child {
   border-bottom: none; /* Remove border for the last item */
 }
