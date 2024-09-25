@@ -14,13 +14,16 @@ app.use(express.json());
 
 // Import routes
 const publicRoutes = require('./routes/publicRoutes');
-const protectedRoutes = require('./routes/protectedRoutes')
+const protectedRoutes = require('./routes/protectedRoutes');
 const { resetPassword, forgotPassword } = require('./controllers/authController');
+const { productsFetch, productsFetchById } = require('./controllers/productsController');
 
 // Public routes (no authentication required)
 app.use('/account', publicRoutes);
 app.post('/forgot-password', forgotPassword);
 app.use('/reset-password/:token', resetPassword);
+app.use('/products', productsFetch);
+app.get('/products/:id', productsFetchById); // Use app.get and dynamic parameter
 
 // Protected routes (authentication required)
 app.use('/account', authenticateToken, protectedRoutes);

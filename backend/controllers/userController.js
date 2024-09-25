@@ -48,3 +48,25 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// Get user data after login
+exports.userData = async (req, res) => {
+  try {
+    const userId = req.user.userId; // Extract the userId from the verified token
+
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID not found' });
+    }
+
+    const user = await User.findById(userId).select('-password'); // Find user by ID, exclude password
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user); // Send the user data
+  } catch (err) {
+    console.error('Error fetching user data:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

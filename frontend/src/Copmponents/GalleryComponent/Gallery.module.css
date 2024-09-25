@@ -1,0 +1,49 @@
+.gallery_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  padding: 20px;
+}
+
+.gallery_item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.gallery_item:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.gallery_image {
+  width: 100%;
+  height: 150px; /* Fix height for consistency */
+  object-fit: cover;
+}
+
+.gallery_info {
+  padding: 15px;
+}
+
+.product_model {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.product_manufacturer {
+  font-size: 14px;
+  color: #777;
+}
+
+.product_price {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}

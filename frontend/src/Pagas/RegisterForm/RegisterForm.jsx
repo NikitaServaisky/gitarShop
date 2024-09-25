@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormComponent from '../../Copmponents/FormComponent/Form';
 import Button from '../../Copmponents/ButtonComponent/Button';
+import { backEndApi } from '../../api';
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const fields = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'secondName', label: 'Second Name', type: 'text', required: true },
@@ -14,11 +18,10 @@ const RegisterForm = () => {
 
   const handleRegister = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/account', {
+      const response = await fetch(`${backEndApi}/account/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -26,6 +29,7 @@ const RegisterForm = () => {
       const result = await response.json();
       if (response.ok) {
         alert('User registered successfully!');
+        navigate('/account');
       } else {
         alert(`User registration failed: ${result.message}`);
       }
@@ -38,7 +42,6 @@ const RegisterForm = () => {
   return (
     <>
       <FormComponent fields={fields} onSubmit={handleRegister} />
-      <Button>Register</Button>
       <Button>Cancel</Button>
     </>
   );
