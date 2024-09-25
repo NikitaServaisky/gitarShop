@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../controllers/AuthContext';
 import FormComponent from '../../Copmponents/FormComponent/Form';
+import { backEndApi } from '../../api';
 
 const LoginForm = () => {
   const { login } = useAuth();
@@ -21,7 +22,7 @@ const LoginForm = () => {
 
   const handleLogin = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/account/login', {
+      const response = await fetch(backEndApi + '/account/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

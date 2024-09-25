@@ -1,37 +1,38 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import FormComponent from '../../Copmponents/FormComponent/Form';
+import { backEndApi } from '../../api';
 
 function ResetPassword() {
-  const [newPass, setNewPass] = useState({ 'new password': '', 'password again': '' });
-  const [token, setToken] = useState('');
-
-  // Extract token from the URL
-useEffect(() => {
-  const currentUrl = window.location.href;
-  const tokenFromUrl = currentUrl.split('/').pop(); // Extracts the token
-  setToken(tokenFromUrl);
-}, []);
-
+  const { token } = useParams();
+  const [newPass, setNewPass] = useState({ newPassword: '', passwordAgain: '' });
 
   const fields = [
-    { name: 'new password', label: 'password', tpye: 'password', require: true },
-    { name: 'password again', label: 'password again', tpye: 'password', require: true },
+    { name: 'newPassword', label: 'password', type: 'password', require: true },
+    { name: 'passwordAgain', label: 'password again', type: 'password', require: true },
   ];
 
+  useEffect(() => {
+    if (newPass) {
+      console.log('newPass: ', newPass);
+    }
+  }, [newPass]);
+
   const handleInputChange = (e) => {
+    // console.log('event: ', e);
     const { name, value } = e.target;
+
     setNewPass({ ...newPass, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleReset(newPass);
+  const handleSubmit = () => {
+    handleReset();
   };
 
-  const handleReset = async (newPass) => {
+  const handleReset = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/reset-password/${token}`, {
+      const response = await fetch(`${backEndApi}/reset-password/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
